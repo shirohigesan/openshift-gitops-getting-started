@@ -12,5 +12,5 @@ spec:
     directory:
       recurse: true
     path: app
-    repoURL: https://github.com/siamaksade/openshift-gitops-getting-started.git
+    repoURL: https://github.com/shirohigesan/openshift-gitops-getting-started.git
     targetRevision: main
