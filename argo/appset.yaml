@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: app-spring-petclinic
+spec:
+  generators:
+  - list:
+      # Parameters are generated based on this cluster list, to be
+      # substituted into the template below.
+      elements: 
+      - cluster: local
+        url: https://kubernetes.default.svc
+      - cluster: cluster-a
+        url: https://api.cluster-cqt5v.cqt5v.sandbox2051.opentlc.com:6443
+  template: 
+    metadata:
+      name: '{{cluster}}-app-spring-petclinic'
+    spec:
+      project: default
+      source:
+        directory:
+          recurse: true
+        path: app/{{cluster}}
+        repoURL: https://github.com/shirohigesan/openshift-gitops-getting-started.git
+        targetRevision: main
+      destination:
+        server: '{{url}}'
+        namespace: spring-petclinic
